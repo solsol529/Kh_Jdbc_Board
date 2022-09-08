@@ -1,10 +1,13 @@
 package com.kh.dao;
 
 import com.kh.util.Common;
+import com.kh.vo.MemberVO;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MemberDAO {
@@ -14,7 +17,33 @@ public class MemberDAO {
     ResultSet rs = null;
     Scanner sc = new Scanner(System.in);
 
-    public void boardInsert() {
+    public List<MemberVO> memberSelect() {
+        List<MemberVO> list = new ArrayList<>();
+        try{
+            conn = Common.getConnection();
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM MEMBER";
+            rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                int no = rs.getInt("MEMBER_NUM");
+                String nick = rs.getString("NICKNAME");
+                String pw = rs.getString("PWD");
+                Date date = rs.getDate("REG_DATE");
+                MemberVO vo = new MemberVO(no, nick, pw, date);
+                list.add(vo); //생성 된 객체를 리스트에 저장
+            }
+            Common.close(rs);
+            Common.close(stmt);
+            Common.close(conn);
+
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void memberInsert() {
         System.out.println("가입정보를 입력 하세요");
         System.out.print("사원번호(4자리) : ");
         int no = sc.nextInt();
@@ -42,6 +71,16 @@ public class MemberDAO {
         }
         Common.close(pstmt);
         Common.close(conn);
+    }
+
+    public void memSelectRst(List<MemberVO> list) {
+        for(MemberVO e : list) {
+            System.out.print(e.getMemNo() + " ");
+            System.out.print(e.getNickName() + " ");
+            System.out.print(e.getPwd() + " ");
+            System.out.print(e.getDate() + " ");
+            System.out.println();
+        }
     }
 
 }

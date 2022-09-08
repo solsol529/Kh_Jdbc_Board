@@ -1,16 +1,18 @@
 package com.kh.vo;
 
+import java.sql.Date;
+
 public class MemberVO {
     private int memNo;
     private String nickName;
     private String pwd;
     private String date;
 
-    public MemberVO(int memNo, String nickName, String pwd, String date) {
+    public MemberVO(int memNo, String nickName, String pwd, Date date) {
         this.memNo = memNo;
         this.nickName = nickName;
         this.pwd = pwd;
-        this.date = date;
+        this.date = String.valueOf(date);
     }
 
     public int getMemNo() {
