@@ -1,38 +1,26 @@
 package com.kh;
 
-import com.kh.util.Common;
+import com.kh.dao.MemberDAO;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.Scanner;
 
 public class JdbcMain {
     public static void main(String[] args) {
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            conn = Common.getConnection();
-            stmt = conn.createStatement();
-            String sql = "SELECT * from EMP";
-            rs = stmt.executeQuery(sql);
 
-            System.out.println(rs);
-            while(rs.next()) {
-                System.out.print(rs.getInt("EMPNO"));
-                System.out.print(rs.getString("ENAME"));
-                System.out.print(rs.getString("JOB"));
-                System.out.print(rs.getInt("MGR"));
-                System.out.print(rs.getDate("HIREDATE"));
-                System.out.print(rs.getDouble("SAL"));
-                System.out.print(rs.getInt("COMM"));
-                System.out.print(rs.getInt("DEPTNO"));
-                System.out.println();
+    }
+    public static void menuSelect() {
+        Scanner sc = new Scanner(System.in);
+        MemberDAO dao = new MemberDAO();
+        while(true) {
+            System.out.println("===== [게시판] =====");
+            System.out.println("메뉴를 조회 하세요");
+            System.out.print("[1]회원검색, [2]가입하기, [3]게시판 : ");
+            int sel = sc.nextInt();
+            switch (sel) {
+                case 1 :
+                    List<MemberVO> list = dao
+
             }
-
-        }catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
