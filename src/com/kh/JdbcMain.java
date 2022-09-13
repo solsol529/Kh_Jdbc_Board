@@ -22,7 +22,7 @@ public class JdbcMain {
         while(true) {
             System.out.println("===== [회원정보] =====");
             System.out.println("메뉴를 선택 하세요");
-            System.out.print("[1]모든회원정보 [2]가입하기 [3]회원정보변경 [4]회원탈퇴 [5]회원정보종료 : ");
+            System.out.print("[1]모든회원정보 [2]가입하기 [3]회원정보변경 [4]회원탈퇴 [5]게시판메뉴 : ");
             int sel = sc.nextInt();
             switch (sel) {
                 case 1 :
@@ -49,7 +49,7 @@ public class JdbcMain {
         while(true) {
             System.out.println("===== [게시판] =====");
             System.out.println("메뉴를 선택 하세요");
-            System.out.print("[1]게시판목록 [2]게시판종료 ");
+            System.out.print("[1]게시판목록 [2]게시글메뉴 ");
             int sel = sc.nextInt();
             switch (sel) {
                 case 1 :
@@ -57,7 +57,7 @@ public class JdbcMain {
                     dao.boardSelectRst(list);
                     break;
                 case 2 :
-                    System.out.print("게시판이 종료되었습니다.");
+                    System.out.println("게시판이 종료되었습니다.");
                     return;
             }
         }
@@ -66,7 +66,7 @@ public class JdbcMain {
         Scanner sc = new Scanner(System.in);
         WriteDAO dao = new WriteDAO();
         while (true) {
-            System.out.print("[1]게시글목록 [2]글쓰기 [3]글수정 [4]글삭제 [5]게시글종료 ");
+            System.out.print("[1]게시글목록 [2]글쓰기 [3]글수정 [4]글삭제 [5]종료 ");
             int sel = sc.nextInt();
             switch (sel) {
                 case 1 :
