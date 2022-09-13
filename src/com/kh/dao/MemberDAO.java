@@ -28,8 +28,7 @@ public class MemberDAO {
                 int no = rs.getInt("MEMBER_NUM");
                 String nick = rs.getString("NICKNAME");
                 String pw = rs.getString("PWD");
-                Date date = rs.getDate("REG_DATE");
-                MemberVO vo = new MemberVO(no, nick, pw, date);
+                MemberVO vo = new MemberVO(no, nick, pw);
                 list.add(vo); //생성 된 객체를 리스트에 저장
             }
             Common.close(rs);
@@ -51,12 +50,8 @@ public class MemberDAO {
         String nick = sc.next();
         System.out.print("비밀번호 : ");
         String pw = sc.next();
-        LocalDate now = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        String formatedNow = now.format(formatter);
-        System.out.print("날짜 : " + formatedNow);
 
-        String sql = "INSERT INTO BOARD(MEMBER_NUM, NICKNAME, PWD, REG_DATE)" +
+        String sql = "INSERT INTO BOARD(MEMBER_NUM, NICKNAME, PWD)" +
                 "VALUES(?,?,?,?)";
         try {
             conn = Common.getConnection();
@@ -64,7 +59,6 @@ public class MemberDAO {
             pstmt.setInt(1, no);
             pstmt.setString(2, nick);
             pstmt.setString(3, pw);
-            pstmt.setString(4, formatedNow);
             pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +72,6 @@ public class MemberDAO {
             System.out.print(e.getMemNo() + " ");
             System.out.print(e.getNickName() + " ");
             System.out.print(e.getPwd() + " ");
-            System.out.print(e.getDate() + " ");
             System.out.println();
         }
     }
