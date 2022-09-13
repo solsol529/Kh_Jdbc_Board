@@ -103,4 +103,23 @@ public class MemberDAO {
         Common.close(pstmt);
         Common.close(conn);
     }
+
+    public void memDelete() {
+        System.out.print("삭제 할 닉네임 입력 : ");
+        String nickname = sc.next();
+        System.out.print("비밀번호 입력 : ");
+        String pwd = sc.next();
+        String sql = "DELETE FROM BOARD WHERE NICKNAME = ?, PWD = ?";
+        try {
+            conn = Common.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, nickname);
+            pstmt.setString(2, pwd);
+            int ret = pstmt.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        Common.close(pstmt);
+        Common.close(conn);
+    }
 }
