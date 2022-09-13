@@ -16,7 +16,7 @@ public class JdbcMain {
         while(true) {
             System.out.println("===== [게시판] =====");
             System.out.println("메뉴를 조회 하세요");
-            System.out.print("[1]회원검색, [2]가입하기, [3]게시판 : ");
+            System.out.print("[1]모든회원정보 [2]가입하기 [3]회원정보변경 [4]Exit : ");
             int sel = sc.nextInt();
             switch (sel) {
                 case 1 :
@@ -26,7 +26,14 @@ public class JdbcMain {
                 case 2 :
                     dao.memberInsert();
                     break;
+                case 3 :
+                    dao.memUpdate();
+                    break;
+                case 4 :
+                    System.out.println("게시판 종료");
+                    return;
             }
         }
+
     }
 }

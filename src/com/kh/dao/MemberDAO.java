@@ -19,12 +19,12 @@ public class MemberDAO {
 
     public List<MemberVO> memberSelect() {
         List<MemberVO> list = new ArrayList<>();
-        try{
+        try {
             conn = Common.getConnection();
             stmt = conn.createStatement();
             String sql = "SELECT * FROM MEMBER";
             rs = stmt.executeQuery(sql);
-            while(rs.next()) {
+            while (rs.next()) {
                 int no = rs.getInt("MEMBER_NUM");
                 String nick = rs.getString("NICKNAME");
                 String pw = rs.getString("PWD");
@@ -37,7 +37,7 @@ public class MemberDAO {
             Common.close(conn);
 
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
@@ -58,7 +58,7 @@ public class MemberDAO {
 
         String sql = "INSERT INTO BOARD(MEMBER_NUM, NICKNAME, PWD, REG_DATE)" +
                 "VALUES(?,?,?,?)";
-        try{
+        try {
             conn = Common.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, no);
@@ -66,7 +66,7 @@ public class MemberDAO {
             pstmt.setString(3, pw);
             pstmt.setString(4, formatedNow);
             pstmt.executeUpdate();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Common.close(pstmt);
@@ -74,7 +74,7 @@ public class MemberDAO {
     }
 
     public void memSelectRst(List<MemberVO> list) {
-        for(MemberVO e : list) {
+        for (MemberVO e : list) {
             System.out.print(e.getMemNo() + " ");
             System.out.print(e.getNickName() + " ");
             System.out.print(e.getPwd() + " ");
@@ -83,4 +83,24 @@ public class MemberDAO {
         }
     }
 
+    public void memUpdate() {
+        System.out.println("변경할 회원 정보 입력");
+        System.out.print("닉네임 : ");
+        String nickName = sc.next();
+        System.out.print("비밀번호 : ");
+        String pwd = sc.next();
+        String sql = "UPDATE BOARD SET NICKNAME = ?, PWD = ?";
+        try{
+            conn = Common.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, nickName);
+            pstmt.setString(2, pwd);
+            int ret = pstmt.executeUpdate();
+            System.out.print("Return : " + ret);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        Common.close(pstmt);
+        Common.close(conn);
+    }
 }
